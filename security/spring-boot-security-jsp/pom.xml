@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.neosoft</groupId>
-	<artifactId>spring-boot-security</artifactId>
+	<artifactId>spring-boot-security-jsp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-security</name>
+	<name>spring-boot-security-jsp</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

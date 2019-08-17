@@ -73,6 +73,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.invalidateHttpSession(true)
 			.deleteCookies("JSESSIONID")
 			.permitAll();
+		
+		
+		
+		
 			
 	}
 	@Bean
@@ -92,6 +96,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
+//		auth.inMemoryAuthentication().
+//		withUser("sagir").password("{noop}password").roles("USER").
+//		and().
+//		withUser("sahil").password("{noop}password").roles("USER");
+		
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());	
 		//auth.authenticationProvider(authenticationProvider);
 		//for use authentication provider user authenticationProvider

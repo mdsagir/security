@@ -1,6 +1,5 @@
 package com.neosoft.registration.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;

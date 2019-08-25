@@ -20,6 +20,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		registry.addViewController("/logout-user").setViewName("logout-user");
 		registry.addViewController("/user").setViewName("user");
 		registry.addViewController("/admin").setViewName("admin");
+		registry.addViewController("/access-denied").setViewName("access-denied");
 	}
 
 	@Bean

@@ -15,7 +15,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-public class MySimpleUrlAuthenticationHandler implements AuthenticationSuccessHandler {
+public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -50,8 +50,10 @@ public class MySimpleUrlAuthenticationHandler implements AuthenticationSuccessHa
 			}
 		}
 		if (isUser) {
+			System.out.println("User is User Role redirecting to the user page");
 			return "/user";
 		} else if (isAdmin) {
+			System.out.println("User is User Admin Role redirecting to the Admin page");
 			return "/admin";
 		} else {
 			throw new IllegalStateException();

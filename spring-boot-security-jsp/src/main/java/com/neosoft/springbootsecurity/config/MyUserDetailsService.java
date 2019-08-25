@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
+	//Password is password
 	private String password = "$2a$10$.u4ynhKpytEE98n6sDKYMOHF6yv9mSkTwPMTsZUY9IdKP8buwR/Ca";
 
 	

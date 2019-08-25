@@ -9,13 +9,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+import com.neosoft.springbootsecurity.handler.MyAccessDeniedHandler;
 import com.neosoft.springbootsecurity.handler.MyAuthenticationFailureHandler;
 import com.neosoft.springbootsecurity.handler.MyLogoutSuccessHandler;
-import com.neosoft.springbootsecurity.handler.MySimpleUrlAuthenticationHandler;
+import com.neosoft.springbootsecurity.handler.MyAuthenticationSuccessHandler;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 
@@ -32,52 +34,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-//		http.authorizeRequests().anyRequest()
-//				
-//			
-//		
-//		
-//				.authenticated()
-//				.and()
-//				.anonymous().and()
-//				.formLogin().loginPage("/login")
-//				.loginProcessingUrl("/authenticate")
-//				.defaultSuccessUrl("/home", true) // true value default every page redirect false retain previous page 
-//				.failureUrl("/fails")
-//				.permitAll()
-//				.and()
-//				.logout()
-//				.logoutSuccessUrl("/logout-user") //after logout redirect
-//				.deleteCookies("JSESSIONID")
-//				.permitAll();
-
-		
 		http.authorizeRequests()
+		
 			.antMatchers("/anonymous*").anonymous()
 			.antMatchers("/login").permitAll()
 			.antMatchers("/home").permitAll()
 			.antMatchers("/fails").permitAll()
+			.antMatchers("/access-denied").permitAll()
+			.antMatchers("/user").hasAuthority("USER")
+			.antMatchers("/admin").hasAuthority("ADMIN")
 			.anyRequest()
 			.authenticated()
+			
 			.and()
+			
             .formLogin()
             .loginPage("/login")
             .loginProcessingUrl("/authenticate")
-            .defaultSuccessUrl("/home")
+            .defaultSuccessUrl("/home") 
+            
             .successHandler(myAuthenticationSuccessHandler())
             .failureHandler(authenticationFailureHandler())
             .and()
+            
 			.logout()
+			
 			.logoutUrl("/logout-url")
 			.logoutSuccessHandler(logoutSuccessHandler())
 			.invalidateHttpSession(true)
 			.deleteCookies("JSESSIONID")
-			.permitAll();
-		
-		
-		
-		
+			.permitAll()
+			.and()
 			
+			.exceptionHandling()
+			
+			.accessDeniedHandler(myAccessDeniedHandler());
+			//.accessDeniedPage("/access-denied");
+					
 	}
 	@Bean
 	public AuthenticationFailureHandler authenticationFailureHandler() {
@@ -90,7 +83,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
-		return new MySimpleUrlAuthenticationHandler();
+		return new MyAuthenticationSuccessHandler();
+	}
+	@Bean
+	public AccessDeniedHandler myAccessDeniedHandler() {
+		return new MyAccessDeniedHandler();
 	}
 
 	@Override

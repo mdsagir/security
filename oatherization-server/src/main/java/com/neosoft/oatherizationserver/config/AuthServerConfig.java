@@ -26,7 +26,11 @@ public class AuthServerConfig  extends WebSecurityConfigurerAdapter implements A
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-		clients.inMemory().withClient("web").secret("{noop}webpass").scopes("READ","WRITE").authorizedGrantTypes("password","authorization_code");
+		clients.inMemory()
+			.withClient("web")
+			.secret("{noop}webpass")
+			.scopes("READ","WRITE")
+			.authorizedGrantTypes("password","authorization_code");
 	}
 
 	@Override

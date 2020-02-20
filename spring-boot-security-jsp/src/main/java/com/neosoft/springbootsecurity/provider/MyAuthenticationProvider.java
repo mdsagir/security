@@ -13,12 +13,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.neosoft.springbootsecurity.config.MyUserDetails;
+
 @Component
 public class MyAuthenticationProvider implements AuthenticationProvider {
 
-//	public MyAuthenticationProvider() {
-//		//super();
-//	}
+
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -33,7 +33,9 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 			
 			
 			
-			final UserDetails principal = new User(username, password, grantedAuths);
+			//final UserDetails principal = new User(username, password, grantedAuths);
+			
+			final UserDetails principal =new MyUserDetails(username, password, grantedAuths);
 			
 			final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
 
